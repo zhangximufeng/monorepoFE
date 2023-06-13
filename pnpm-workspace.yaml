@@ -1,0 +1,3 @@
+packages:
+  - 'apps/*' # 项目目录
+  - 'packages/*' # 公共组件
