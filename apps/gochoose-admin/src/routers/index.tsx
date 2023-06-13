@@ -44,7 +44,7 @@ const RouterProvider = () => {
     if (dynamicRouter && newRouter[newRouter.length - 1].path === "*") {
       newRouter[newRouter.length - 1].element = <NotFound />;
     }
-    console.log(newRouter, "newRouter")
+    console.log(newRouter, "newRouter");
     setRouterList(newRouter);
   }, [authMenuList]);
 
