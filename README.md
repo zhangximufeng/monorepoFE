@@ -40,7 +40,7 @@
 
 ## 相关技术栈
 
-- `react`，`react18`，`vite`，`vite3`，`antd`，`antd5.x`，`ts`，`typescript`，`redux`，`react-redux`，`@reduxjs/toolkit`
+- `react`，`react18`，`vite`，`vite4`，`antd`，`antd5.x`，`ts`，`typescript`，`redux`，`react-redux`，`@reduxjs/toolkit`
 - [Monorepo](https://turbo.build/repo/docs)
 - [ReactJS](https://reactjs.org)
 - [Vite](https://vitejs.dev)
@@ -66,18 +66,13 @@
 - pnpm add sax@next 安装标记为 next 的版本
 - pnpm add sax@3.0.0 安装指定版本 3.0.0
 
-### 推荐使用 webstrom vscode 开发
-
-### 代码目录结构
-
-- 使用库生成 `treer`
-- 生成 `tree -e ./result.txt -i '/node_modules|.git/'`
+### 推荐使用 vscode 开发
 
 ### 包划分
 
 - [components](components) 存放功能性组件，更偏向系统功能，比如`Layout`公共布局组件
 - [eslint-config-custom](eslint-config-custom) `eslint`统一管理，所有`package`统一引入
-- [hooks](hooks) 自定义`react hooks`，比如`KeepAlive`
+- [hooks](hooks) 自定义`react hooks`，比如`useEcharts`
 - [store](store) 全局状态管理器，封装了`redux`，`store`树，提供`useSelector`，`useDispatch`
 - [utils](utils) 工具库，常用的工具函数
 
@@ -91,17 +86,13 @@
    ```bash
    cd monorepoFE
    ```
-3. git 初始化项目
-   ```bash
-   git init
-   ```
-4. 安装依赖包
+3. 安装依赖包
    ```bash
    pnpm install
    ```
-5. 启动项目
+4. 启动项目
    ```bash
-   pnpm run dev
+   pnpm dev
    ```
 
 ### 发布
