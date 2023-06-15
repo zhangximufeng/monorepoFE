@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthState } from "../interface";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getAuthMenuListApi } from "../../../../apps/gochoose-admin/src/api/modules";
+import { getAuthMenuListApi } from "../../../../apps/Hooks-Admin/src/api/modules";
 import { getAllBreadcrumbList } from "utils";
 
 const authState: AuthState = {
