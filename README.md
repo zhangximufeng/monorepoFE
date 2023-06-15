@@ -106,13 +106,13 @@
   pnpm build:sit
   ```
 
-### 校验代码 格式化代码
-
-- 提交代码自动执行
+### 提交命令
 
 ```bash
-pnpm run lint && pnpm run format
+pnpm commit
 ```
+
+自动会执行 husky 下面的 npm run lint:lint-staged，具体校验 lint-staged.config.cjs 文件
 
 ### 提交格式
 
