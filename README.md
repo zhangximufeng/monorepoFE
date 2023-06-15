@@ -2,8 +2,6 @@
 
 ## 支持`vite`生成动态路由
 
-## 代码简介，致力打造成一个标准的模版，可直接用于生产环境开发
-
 # `Monorepo` 管理项目
 
 ## 为什么使用
@@ -13,15 +11,12 @@
 - 组件耦合严重，组件代码量大
 - 业务开发分工不明确，业务开发人员要关心非业务的代码
 - 编译慢，效率低
-- 无法对应用做增量编译&增量部署
-- 相关包基础依赖可能会重复打包，如： `lodash`,`moment`...
 - 管理、调试、追踪 `bug` 困难
 - 不同项目之间 `node`、`node-sass`、`webpack` 等基础依赖版本不统一，切换增加心智负担
 - 不同项目可能存在技术栈不统一，如：状态管理，`less`,`sass`
 - 分支管理混乱
 - 多包多项目之间依赖关系复杂
 - 第三方依赖库版本可能不一致
-- 占用总空间大
 - 不利于团队协作
 - 无法针对主应用统一跑测试用例,发布时很难避免一些基本的错误发生
 - 需要频繁切换项目
@@ -127,6 +122,11 @@ pnpm commit
 - `revert`: 回滚到上一个版本
 - `merge`: 代码合并
 
-## License
+### 致谢
 
-This project is licensed under the MIT License. .
+- [Monorepo 最佳实战](https://juejin.cn/post/7204670801245143098)
+- [Hooks-Admin](https://github.com/HalseySpicy/Hooks-Admin)
+
+### Hooks-Admin
+
+近期 Hooks-Admin 已经在重构了，当前代码就是 Hooks-Admin 最新的代码。后期会和 HalseSpicy/Hooks-Admin master 分支同步更新。
