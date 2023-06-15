@@ -1,6 +1,7 @@
 export default {
   home: {
-    welcome: "Welcome"
+    welcome: "Welcome",
+    Liam: "limuen"
   },
   tabs: {
     more: "More",

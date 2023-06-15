@@ -217,6 +217,22 @@ export function getFlatMenuList(menuList: any[]): any[] {
 }
 
 /**
+ * @description 获取需要展开的 subMenu
+ * @param {String} path 当前访问地址
+ * @returns array
+ */
+export const getOpenKeys = (path: string) => {
+  let newStr: string = "";
+  let newArr: any[] = [];
+  let arr = path.split("/").map(i => "/" + i);
+  for (let i = 1; i < arr.length - 1; i++) {
+    newStr += arr[i];
+    newArr.push(newStr);
+  }
+  return newArr;
+};
+
+/**
  * @description 使用递归找出所有面包屑存储到 redux 中
  * @param {Array} menuList 菜单列表
  * @param {Array} parent 父级菜单
@@ -230,3 +246,18 @@ export const getAllBreadcrumbList = (menuList: any[], parent = [], result: { [ke
   }
   return result;
 };
+
+/**
+ * @description 获取浏览器默认语言
+ * @returns {String}
+ */
+export function getBrowserLang() {
+  let browserLang = navigator.language ? navigator.language : navigator.browserLanguage;
+  let defaultBrowserLang = "";
+  if (["cn", "zh", "zh-cn"].includes(browserLang.toLowerCase())) {
+    defaultBrowserLang = "zh";
+  } else {
+    defaultBrowserLang = "en";
+  }
+  return defaultBrowserLang;
+}

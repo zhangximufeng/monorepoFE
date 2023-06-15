@@ -1,6 +1,7 @@
 export default {
   home: {
-    welcome: "欢迎使用"
+    welcome: "欢迎使用",
+    Liam: "李沐恩"
   },
   tabs: {
     more: "更多",

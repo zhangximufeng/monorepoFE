@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "hooks";
 import { I18nextProvider } from "react-i18next";
 import { setGlobalState } from "store";
 import { LanguageType } from "store/module/interface";
-import { getBrowserLang } from "@/utils";
+import { getBrowserLang } from "utils";
 import RouterProvider from "@/routers";
 import i18n from "@/languages/index";
 import enUS from "antd/locale/en_US";

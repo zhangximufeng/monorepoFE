@@ -1,5 +1,5 @@
 {
-	"compilerOptions": {
+  "compilerOptions": {
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "ESNext",
@@ -7,7 +7,7 @@
 
     /* Bundler mode */
     "moduleResolution": "Node",
-		"resolveJsonModule": true,
+    "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
@@ -16,9 +16,8 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-
+    "noFallthroughCasesInSwitch": true
   },
-	"include": ["."],
-	"exclude": ["dist", "build", "node_modules"]
+  "include": [".", "windows.d.ts"],
+  "exclude": ["dist", "build", "node_modules"]
 }
