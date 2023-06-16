@@ -10,7 +10,7 @@ import auth from "./reducers/auth";
 import tabs from "./reducers/tabs";
 import { fetchMenuList } from "./reducers/auth";
 import { setGlobalState } from "./reducers/global";
-import { setTabsList } from "./reducers/tabs";
+import { addTabs, removeTabs } from "./reducers/tabs";
 import { setToken, setUserInfo } from "./reducers/user";
 
 // create reducer
@@ -42,6 +42,6 @@ type AppDispatch = ThunkDispatch<RootState, any, AnyAction>;
 
 export { store, Provider, useSelector, useDispatch, persistor };
 
-export { setGlobalState, fetchMenuList, setTabsList, setToken, setUserInfo };
+export { setGlobalState, fetchMenuList, addTabs, removeTabs, setToken, setUserInfo };
 
 export type { RootState, AppDispatch, TypedUseSelectorHook };

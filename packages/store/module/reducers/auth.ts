@@ -1,12 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AuthState } from "../interface";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getAuthMenuListApi } from "../../../../apps/Hooks-Admin/src/api/modules";
-import { getAllBreadcrumbList } from "utils";
+import { getAllBreadcrumbList, getFlatMenuList, getShowMenuList } from "utils";
+import { RouteObjectType, AuthState } from "../interface";
 
 const authState: AuthState = {
+  // 按钮权限列表
   authButtonList: {},
+  // 菜单权限列表
   authMenuList: [],
+  // 菜单权限列表 ==> 左侧菜单栏渲染，需要剔除 isHide == true
+  showMenuList: [],
+  // 菜单权限列表 ==> 扁平化之后的一维数组菜单，主要用来添加动态路由
+  flatMenuList: [],
+  // 递归处理后的所有面包屑导航列表
   breadcrumbAllList: {}
 };
 
@@ -18,21 +25,15 @@ export const fetchMenuList = createAsyncThunk("fetchMenuList", async () => {
 const globalSlice = createSlice({
   name: "hooks-auth",
   initialState: authState,
-  reducers: {
-    // setAuthButtonList(state, { payload }: PayloadAction<{ [propName: string]: any }>) {
-    //   state.authButtonList = payload;
-    // },
-    // setAuthMenuList(state, { payload }: PayloadAction<string[]>) {
-    //   state.authMenuList = payload;
-    // }
-  },
+  reducers: {},
   extraReducers: builder => {
-    builder.addCase(fetchMenuList.fulfilled, (state, { payload }: PayloadAction<string[]>) => {
+    builder.addCase(fetchMenuList.fulfilled, (state, { payload }: PayloadAction<RouteObjectType[]>) => {
       state.authMenuList = payload;
+      state.flatMenuList = getFlatMenuList(payload);
+      state.showMenuList = getShowMenuList(payload);
       state.breadcrumbAllList = getAllBreadcrumbList(payload);
     });
   }
 });
 
-// export const { setAuthButtonList, setAuthMenuList } = globalSlice.actions;
 export default globalSlice.reducer;

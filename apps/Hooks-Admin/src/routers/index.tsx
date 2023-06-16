@@ -3,7 +3,7 @@ import { staticRouter } from "./modules/staticRouter";
 import { useState, useEffect, lazy } from "react";
 import { getFlatMenuList } from "utils";
 import { LayoutIndex } from "components";
-import { useTheme, useAppSelector } from "hooks";
+import { useAppSelector, useTheme } from "hooks";
 import useMessage from "hooks/module/useMessage";
 import LazyComponent from "./utils/LazyComponent";
 import { RouteObjectType } from "./interface";
@@ -11,13 +11,15 @@ import NotFound from "@/components/Error/404";
 
 const modules = import.meta.glob("@/views/**/*.tsx") as Record<string, Parameters<typeof lazy>[number]>;
 
-const RouterProvider = () => {
+const RouterProvider: React.FC = () => {
+  // initTheme && useMessage
   const { initTheme } = useTheme();
   initTheme();
   useMessage();
 
   const { authMenuList } = useAppSelector(state => state.auth);
-  const [routerList, setRouterList] = useState([...staticRouter]);
+  const [routerList, setRouterList] = useState(staticRouter);
+
   const handleDynamicRouter = () => {
     const flatMenuList = getFlatMenuList(authMenuList);
     flatMenuList.forEach(item => {
@@ -40,12 +42,10 @@ const RouterProvider = () => {
 
   useEffect(() => {
     const dynamicRouter = handleDynamicRouter();
-    let newRouter = [dynamicRouter, ...routerList];
-    if (dynamicRouter && newRouter[newRouter.length - 1].path === "*") {
-      newRouter[newRouter.length - 1].element = <NotFound />;
-    }
-    console.log(newRouter, "newRouter");
-    setRouterList(newRouter);
+    let handleRouter = [dynamicRouter, ...routerList];
+    // 防止刷新页面 404，最后在添加 * 路由
+    handleRouter.forEach(item => item.path === "*" && (item.element = <NotFound />));
+    setRouterList(handleRouter);
   }, [authMenuList]);
 
   return <Router router={createHashRouter(routerList as RouteObject[])} />;

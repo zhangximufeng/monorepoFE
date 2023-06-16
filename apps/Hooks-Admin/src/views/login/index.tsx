@@ -15,7 +15,7 @@ const Login: React.FC = () => {
         <div className="login-form">
           <div className="login-form-title">
             <img className="login-title-logo" src={logo} alt="logo" />
-            <span className="login-title-text">去选出行管理系统</span>
+            <span className="login-title-text">Hooks-Admin</span>
           </div>
           <LoginForm />
         </div>

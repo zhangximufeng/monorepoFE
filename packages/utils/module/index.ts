@@ -1,3 +1,5 @@
+import { RouteObjectType } from "../../store/module/interface";
+
 /**
  * hex颜色转rgb颜色
  * @param str 颜色值字符串
@@ -231,6 +233,19 @@ export const getOpenKeys = (path: string) => {
   }
   return newArr;
 };
+
+/**
+ * @description 使用递归过滤出需要渲染在左侧菜单的列表 (需剔除 isHide == true 的菜单)
+ * @param {Array} menuList 菜单列表
+ * @returns {Array}
+ * */
+export function getShowMenuList(menuList: RouteObjectType[]) {
+  let newMenuList: RouteObjectType[] = JSON.parse(JSON.stringify(menuList));
+  return newMenuList.filter(item => {
+    item.children?.length && (item.children = getShowMenuList(item.children));
+    return !item.meta?.isHide;
+  });
+}
 
 /**
  * @description 使用递归找出所有面包屑存储到 redux 中

@@ -1,11 +1,13 @@
-import * as React from "react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Tabs, TabsProps } from "antd";
-import { useAppSelector } from "hooks";
+import { Icon } from "../Icon";
+import { useAppSelector, useAppDispatch } from "hooks";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { useLocation, useMatches, useNavigate } from "react-router-dom";
+import { addTabs, removeTabs } from "store";
+import { MetaProps } from "store/module/interface";
 import MoreButton from "./components/MoreButton";
-import * as Icons from "@ant-design/icons";
 import "./index.less";
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
@@ -28,20 +30,20 @@ const DraggableTabNode = ({ index, children, moveNode }: DraggableTabPaneProps) 
     },
     drop: (item: { index: React.Key }) => moveNode(item.index, index)
   });
-  const [, drag] = useDrag({
-    type,
-    item: { index },
-    collect: monitor => ({ isDragging: monitor.isDragging() })
-  });
+  const [, drag] = useDrag({ type, item: { index }, collect: monitor => ({ isDragging: monitor.isDragging() }) });
   drop(drag(ref));
   return <div ref={ref}>{children}</div>;
 };
 
+// eslint-disable-next-line react/prop-types
 const DraggableTabs: React.FC<TabsProps> = ({ items = [] }) => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const location = useLocation();
+  const fullPath = location.pathname + location.search;
   const [order, setOrder] = useState<React.Key[]>([]);
 
   const moveTabNode = (dragKey: React.Key, hoverKey: React.Key) => {
-    console.log(dragKey, hoverKey);
     const newOrder = order.slice();
     items.forEach(item => {
       if (item.key && newOrder.indexOf(item.key) === -1) {
@@ -76,16 +78,13 @@ const DraggableTabs: React.FC<TabsProps> = ({ items = [] }) => {
     return ia - ib;
   });
 
-  const [activeKey, setActiveKey] = useState("/home/index");
-
   const onChange = (path: string) => {
-    console.log(path);
-    setActiveKey(path);
+    navigate(path);
   };
 
   const onEdit = (targetKey: TargetKey, action: "add" | "remove") => {
-    if (action === "remove") {
-      console.log(targetKey);
+    if (action === "remove" && typeof targetKey == "string") {
+      dispatch(removeTabs({ tabPath: targetKey, isCurrent: targetKey == fullPath }));
     }
   };
 
@@ -99,29 +98,45 @@ const DraggableTabs: React.FC<TabsProps> = ({ items = [] }) => {
         size="middle"
         renderTabBar={renderTabBar}
         items={orderItems}
-        onChange={onChange}
-        activeKey={activeKey}
+        activeKey={fullPath}
         onEdit={onEdit}
+        onChange={onChange}
         tabBarExtraContent={MoreButton()}
       />
     </DndProvider>
   );
 };
 
-const customIcons: { [key: string]: any } = Icons;
-
 const LayoutTabs: React.FC = () => {
+  const matches = useMatches();
+  const dispatch = useAppDispatch();
+  const location = useLocation();
+  const fullPath = location.pathname + location.search;
+
   const { tabsList } = useAppSelector(state => state.tabs);
   const { tabs, tabsIcon } = useAppSelector(state => state.global);
-  const createTabsIcon = (icon: string) => React.createElement(customIcons[icon], { style: { marginRight: "9px" } });
+
+  useEffect(() => {
+    const routeData = matches[matches.length - 1].data as MetaProps;
+    if (routeData) {
+      const tabValue = {
+        icon: routeData.icon as string,
+        title: routeData.title as string,
+        path: fullPath,
+        closable: !routeData.isAffix
+      };
+      dispatch(addTabs(tabValue));
+    }
+  }, [matches]);
+
   const items = tabsList.map(item => {
     return {
       key: item.path,
       label: (
-        <span>
-          {tabsIcon && createTabsIcon(item.icon)}
+        <>
+          {tabsIcon && <Icon name={item.icon} />}
           {item.title}
-        </span>
+        </>
       ),
       closable: item.closable
     };

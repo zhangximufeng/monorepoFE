@@ -1,8 +1,26 @@
 import type { SizeType } from "antd/lib/config-provider/SizeContext";
+import { RouteObject } from "react-router-dom";
 
 export type LayoutType = "vertical";
 
 export type LanguageType = "zh" | "en" | null;
+
+export interface MetaProps {
+  key?: string;
+  icon?: string;
+  title?: string;
+  activeMenu?: string;
+  isLink?: string;
+  isHide?: boolean;
+  isFull?: boolean;
+  isAffix?: boolean;
+  isKeepAlive?: boolean;
+}
+
+export type RouteObjectType = Omit<RouteObject, "children"> & {
+  meta?: MetaProps;
+  children?: RouteObjectType[];
+};
 
 /* GlobalState */
 export interface GlobalState {
@@ -48,8 +66,10 @@ export interface AuthState {
   authButtonList: {
     [key: string]: string[];
   };
-  authMenuList: any[];
+  authMenuList: RouteObjectType[];
+  showMenuList: RouteObjectType[];
+  flatMenuList: RouteObjectType[];
   breadcrumbAllList: {
-    [key: string]: any[];
+    [key: string]: RouteObjectType[];
   };
 }

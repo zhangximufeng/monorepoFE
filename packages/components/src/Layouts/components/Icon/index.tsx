@@ -3,7 +3,7 @@ import * as Icons from "@ant-design/icons";
 import * as React from "react";
 
 interface IconProps {
-  name: keyof typeof Icons;
+  name: string;
 }
 
 export const Icon: React.FC<IconProps> = ({ name }) => {

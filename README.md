@@ -1,5 +1,8 @@
 # 一个`Hooks-Admin`+`Monorepo`搭建的后台管理模板「admin template」
 
+账号：admin
+密码：e10adc3949ba59abbe56e057f20f883e
+
 ## 支持`vite`生成动态路由
 
 # `Monorepo` 管理项目
