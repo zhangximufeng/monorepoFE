@@ -329,6 +329,10 @@ importers:
         version: 5.0.4
 
   packages/utils:
+    dependencies:
+      store:
+        specifier: workspace:*
+        version: link:../store
     devDependencies:
       '@types/node':
         specifier: ^18.16.0
