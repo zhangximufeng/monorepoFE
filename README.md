@@ -1,5 +1,3 @@
-# 一个`Hooks-Admin`+`Monorepo`搭建的后台管理模板「admin template」
-
 账号：admin
 密码：e10adc3949ba59abbe56e057f20f883e
 
@@ -130,7 +128,3 @@ pnpm commit
 
 - [Monorepo 最佳实战](https://juejin.cn/post/7204670801245143098)
 - [Hooks-Admin](https://github.com/HalseySpicy/Hooks-Admin)
-
-### Hooks-Admin
-
-近期 Hooks-Admin 已经在重构了，当前代码就是 Hooks-Admin 最新的代码。后期会和 HalseSpicy/Hooks-Admin master 分支同步更新。
