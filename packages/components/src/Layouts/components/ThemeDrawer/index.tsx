@@ -1,4 +1,4 @@
-import { Drawer, Divider, Switch, Popover } from "antd";
+import { Drawer, Divider, Switch, Popover, InputNumber } from "antd";
 import { setGlobalState } from "store";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { FireOutlined, SettingOutlined } from "@ant-design/icons";
@@ -8,6 +8,7 @@ import "./index.less";
 const ThemeDrawer: React.FC = () => {
   const dispatch = useAppDispatch();
   const {
+    borderRadius,
     compactAlgorithm,
     isDark,
     isGrey,
@@ -62,6 +63,21 @@ const ThemeDrawer: React.FC = () => {
       <div className="theme-item mb35">
         <span>紧凑主题</span>
         <Switch checked={compactAlgorithm} onChange={value => dispatch(setGlobalState({ key: "compactAlgorithm", value }))} />
+      </div>
+      <div className="theme-item mb25">
+        <span>圆角大小</span>
+        <InputNumber
+          min={1}
+          max={20}
+          style={{ width: 80 }}
+          defaultValue={borderRadius}
+          formatter={value => `${value}px`}
+          parser={value => (value ? value!.replace("px", "") : 6) as number}
+          onChange={value => {
+            const newValue = value || 6;
+            dispatch(setGlobalState({ key: "borderRadius", value: newValue }));
+          }}
+        />
       </div>
 
       {/* 界面设置 */}

@@ -1,32 +1,32 @@
-import { LOGIN_URL } from "@/config";
+import { HOME_URL, LOGIN_URL } from "@/config";
 import { Navigate } from "react-router-dom";
 import Login from "@/views/login/index";
 import NotAuth from "@/components/Error/403";
 import NotFound from "@/components/Error/404";
 import NotNetwork from "@/components/Error/500";
 import { RouteObjectType } from "../interface";
+import RouterGuard from "./routerGuard";
 
 /**
- * staticRouter (静态路由)
+ * staticRouter
  */
 export const staticRouter: RouteObjectType[] = [
   {
     path: "/",
-    element: <Navigate to={LOGIN_URL} />
+    element: <Navigate to={HOME_URL} />
   },
   {
     path: LOGIN_URL,
     element: <Login />,
     meta: {
-      key: "login",
       title: "登录"
     }
   },
+  // error pages
   {
     path: "/403",
     element: <NotAuth />,
     meta: {
-      key: "403",
       title: "403页面"
     }
   },
@@ -34,7 +34,6 @@ export const staticRouter: RouteObjectType[] = [
     path: "/404",
     element: <NotFound />,
     meta: {
-      key: "404",
       title: "404页面"
     }
   },
@@ -42,12 +41,23 @@ export const staticRouter: RouteObjectType[] = [
     path: "/500",
     element: <NotNetwork />,
     meta: {
-      key: "500",
       title: "500页面"
     }
   },
+  // Set <></> here first to prevent page refresh 404
   {
     path: "*",
-    element: ""
+    element: <></>
   }
 ];
+
+// Wrap each element with a higher-order component
+export const wrappedStaticRouter = staticRouter.map(route => {
+  return {
+    ...route,
+    element: <RouterGuard>{route.element as JSX.Element}</RouterGuard>,
+    loader: () => {
+      return { ...route.meta };
+    }
+  };
+});

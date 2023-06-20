@@ -17,15 +17,19 @@ const authState: AuthState = {
   breadcrumbAllList: {}
 };
 
-export const fetchMenuList = createAsyncThunk("fetchMenuList", async () => {
+export const fetchMenuList = createAsyncThunk("hooks-auth/fetchMenuList", async () => {
   const { data } = await getAuthMenuListApi();
   return data;
 });
 
-const globalSlice = createSlice({
+const authSlice = createSlice({
   name: "hooks-auth",
   initialState: authState,
-  reducers: {},
+  reducers: {
+    setAuthMenuList(state, { payload }: PayloadAction<RouteObjectType[]>) {
+      state.authMenuList = payload;
+    }
+  },
   extraReducers: builder => {
     builder.addCase(fetchMenuList.fulfilled, (state, { payload }: PayloadAction<RouteObjectType[]>) => {
       state.authMenuList = payload;
@@ -36,4 +40,5 @@ const globalSlice = createSlice({
   }
 });
 
-export default globalSlice.reducer;
+export const { setAuthMenuList } = authSlice.actions;
+export default authSlice.reducer;

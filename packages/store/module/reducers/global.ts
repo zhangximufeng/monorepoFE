@@ -15,6 +15,8 @@ const globalState: GlobalState = {
   compactAlgorithm: false,
   // 当前系统语言
   language: null,
+  // antd border radius
+  borderRadius: 6,
   // 当前页面是否全屏
   maximize: false,
   // 主题颜色

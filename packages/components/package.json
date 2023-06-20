@@ -18,6 +18,7 @@
     "postcss": "^8.4.24",
     "postcss-html": "^1.5.0",
     "postcss-less": "^6.0.0",
+    "@types/react-transition-group": "^4.4.6",
     "eslint-config-custom": "workspace:*"
   },
   "dependencies": {
@@ -32,6 +33,7 @@
     "react-dnd-html5-backend": "^16.0.1",
     "react-i18next": "^12.3.1",
     "react-colorful": "^5.6.1",
+    "react-transition-group": "^4.4.5",
     "hooks": "workspace:*",
     "store": "workspace:*",
     "utils": "workspace:*"

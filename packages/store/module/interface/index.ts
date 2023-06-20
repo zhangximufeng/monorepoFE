@@ -27,6 +27,7 @@ export interface GlobalState {
   layout: LayoutType;
   componentSize: SizeType;
   compactAlgorithm: boolean;
+  borderRadius: number;
   language: LanguageType;
   maximize: boolean;
   primary: string;

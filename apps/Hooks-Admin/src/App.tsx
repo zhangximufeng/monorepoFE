@@ -14,7 +14,7 @@ import "dayjs/locale/zh-cn";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { isDark, primary, componentSize, compactAlgorithm, language } = useAppSelector(state => state.global);
+  const { isDark, primary, componentSize, compactAlgorithm, borderRadius, language } = useAppSelector(state => state.global);
 
   // init theme algorithm
   const algorithm = () => {
@@ -40,7 +40,7 @@ const App: React.FC = () => {
       locale={language === "zh" ? zhCN : enUS}
       componentSize={componentSize}
       theme={{
-        token: { colorPrimary: primary },
+        token: { colorPrimary: primary, borderRadius },
         algorithm: algorithm()
       }}
     >
