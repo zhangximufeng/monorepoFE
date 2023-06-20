@@ -1,12 +1,15 @@
 import { HomeOutlined, UserOutlined, FormOutlined, LoginOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Dropdown, Avatar, App } from "antd";
+import { Dropdown, Avatar } from "antd";
 import { useNavigate } from "react-router-dom";
+import { modal, message, useAppDispatch } from "hooks";
+import { setToken, setAuthMenuList } from "store";
+import { logoutApi } from "../../../../../../../apps/Hooks-Admin/src/api/modules";
 import avatar from "../../../images/avatar.png";
 
 const AvatarIcon: React.FC = () => {
   const navigate = useNavigate();
-  const { modal, message } = App.useApp();
+  const dispatch = useAppDispatch();
 
   const logout = () => {
     modal.confirm({
@@ -17,8 +20,13 @@ const AvatarIcon: React.FC = () => {
       cancelText: "取消",
       maskClosable: true,
       onOk: async () => {
-        message.success("退出登录成功！");
+        await logoutApi();
         navigate("/login");
+        message.success("退出登录成功！");
+
+        dispatch(setToken(""));
+        // Update authMenuList asynchronously to prevent 404 page
+        setTimeout(() => dispatch(setAuthMenuList([])));
       }
     });
   };
@@ -28,7 +36,7 @@ const AvatarIcon: React.FC = () => {
       key: "1",
       label: <span className="dropdown-item">首页</span>,
       icon: <HomeOutlined style={{ fontSize: "14px" }} />,
-      onClick: () => navigate("/dashboard")
+      onClick: () => navigate("/dashboard/index")
     },
     {
       key: "2",
