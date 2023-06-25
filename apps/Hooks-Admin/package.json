@@ -14,7 +14,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.12.1",
-    "antd": "^5.6.1",
+    "antd": "^5.6.2",
     "axios": "^1.4.0",
     "dayjs": "^1.11.8",
     "redux-persist": "^6.0.0",
