@@ -50,7 +50,6 @@ const LayoutMenu: React.FC = () => {
   useEffect(() => {
     const routeData = matches[matches.length - 1].data as MetaProps;
     const keys = routeData?.activeMenu ?? pathname;
-    console.log(routeData, "routeData.png");
     setSelectedKeys([keys]);
     setTimeout(() => {
       isCollapse || setOpenKeys(getOpenKeys(pathname));
